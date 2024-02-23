@@ -19,7 +19,7 @@ gcloud artifacts repositories create blazorappcontainer --location=asia-northeas
 ```
 
 ```bash
-docker tag blazorappcontainer asia-northeast1-docker.pkg.dev/$gcp_project/blazorappcontainer/blazorappcontainer:latest
+docker tag blazorappcontainer asia-northeast1-docker.pkg.dev/dotnetlab-415211/blazorappcontainer/blazorappcontainer:latest
 ```
 
 ```bash
@@ -27,5 +27,5 @@ gcloud auth configure-docker asia-northeast1-docker.pkg.dev
 ```
 
 ```bash
-docker push asia-northeast1-docker.pkg.dev/$gcp_project/blazorappcontainer/blazorappcontainer:latest
+docker push asia-northeast1-docker.pkg.dev/dotnetlab-415211/blazorappcontainer/blazorappcontainer:latest
 ```
