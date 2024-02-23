@@ -3,5 +3,29 @@
 CloudRunで`.NET`を動かす
 
 ```bash
-gcloud builds submit --config=cloudbuild.yaml --substitutions="_LOCATION=asia-northeast1,_REPOSITORY=blazorappcontainer,_IMAGE=gcr.io/$gcp_project/blazorappcontainer,_SERVICE_NAME=blazorappcontainer" .
+export gcp_project=your-gcp-project
+```
+
+```bash
+gcloud config set project $gcp_project
+```
+
+```bash
+docker build -t blazorappcontainer . --no-cache --platform linux/amd64
+```
+
+```bash
+gcloud artifacts repositories create blazorappcontainer --location=asia-northeast1 --repository-format=docker
+```
+
+```bash
+docker tag blazorappcontainer asia-northeast1-docker.pkg.dev/$gcp_project/blazorappcontainer/blazorappcontainer:latest
+```
+
+```bash
+gcloud auth configure-docker asia-northeast1-docker.pkg.dev
+```
+
+```bash
+docker push asia-northeast1-docker.pkg.dev/$gcp_project/blazorappcontainer/blazorappcontainer:latest
 ```
