@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Momento.Sdk" Version="1.31.0" />
+  </ItemGroup>
+
 </Project>
