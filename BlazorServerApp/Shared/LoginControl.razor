@@ -1,0 +1,76 @@
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Http
+
+@inject IHttpContextAccessor _httpContextAccessor
+@inject HttpClient Http
+
+@if (User.Identity.Name != null)
+{
+    <img src="@Avatar" />
+    <b>You are logged in as: @GivenName @Surname</b>
+    <a class="ml-md-auto btn btn-primary"
+       href="/Logout"
+       target="_top">Logout</a>
+}
+else
+{
+    <a class="ml-md-auto btn btn-primary"
+       href="/Login"
+       target="_top">Login</a>
+}
+@code {
+    private ClaimsPrincipal User;
+    private string Id="";
+    private string eMail="";
+    private string GivenName="";
+    private string Surname="";
+    private string Avatar="";
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        try
+        {
+            Id = eMail = GivenName = Surname = Avatar = "";
+            
+            // Set the user to determine if they are logged in
+            User = _httpContextAccessor.HttpContext.User;
+
+            // Id 取得
+            var id = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+            if (id != null)
+            {
+                Id = id.Value;
+            }
+
+            // eMail 取得
+            var email = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Email);
+            if (email != null)
+            {
+                eMail = email.Value;
+            }
+
+            // Try to get the GivenName
+            var givenName = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.GivenName);
+            if (givenName != null)
+            {
+                GivenName = givenName.Value;
+            }
+
+            // Try to get the Surname
+            var surname = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Surname);
+            if (surname != null)
+            {
+                Surname = surname.Value;
+            }
+
+            // Try to get Avatar
+            var avatar = _httpContextAccessor.HttpContext.User.FindFirst("urn:google:image");
+            if (avatar != null)
+            {
+                Avatar = avatar.Value;
+            }
+        }
+        catch { }
+    }
+}
