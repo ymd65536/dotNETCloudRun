@@ -16,18 +16,18 @@ builder.Services.AddSingleton<WeatherForecastService>();
 if(builder.Configuration["Authentication:Google:ClientId"] is null || builder.Configuration["Authentication:Google:ClientSecret"] is null)
 {
     throw new Exception("Google Authentication settings are missing. Please check the configuration.");
+}else{
+    builder.Services.AddAuthentication(options => {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+        }).AddCookie()
+        .AddGoogle(options => {
+        options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+        options.ClaimActions.MapJsonKey("urn:google:profile", "link");
+        options.ClaimActions.MapJsonKey("urn:google:image", "picture");
+    });
 }
-
-builder.Services.AddAuthentication(options => {
-    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
-    }).AddCookie()
-    .AddGoogle(options => {
-    options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-    options.ClaimActions.MapJsonKey("urn:google:profile", "link");
-    options.ClaimActions.MapJsonKey("urn:google:image", "picture");
-});
 
 builder.Services.AddHttpClient();           // 注入@inject HttpClient Http
 builder.Services.AddHttpContextAccessor();  
