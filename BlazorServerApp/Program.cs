@@ -13,6 +13,11 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 
+if(builder.Configuration["Authentication:Google:ClientId"] is null || builder.Configuration["Authentication:Google:ClientSecret"] is null)
+{
+    throw new Exception("Google Authentication settings are missing. Please check the configuration.");
+}
+
 builder.Services.AddAuthentication(options => {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
