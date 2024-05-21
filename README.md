@@ -37,3 +37,11 @@ export ASPNETCORE_URLS=http://+:8080
 ```
 
 CloudRunにデプロイするときはデプロイ設定に上記の環境変数を入れないと動きません。
+
+## dotnet secretsを使う
+
+```bash
+dotnet user-secrets init
+dotnet user-secrets set "Authentication:Google:ClientId" "<client-id>"
+dotnet user-secrets set "Authentication:Google:ClientSecret" "<client-secret>"
+```
