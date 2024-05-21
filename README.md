@@ -45,3 +45,7 @@ dotnet user-secrets init
 dotnet user-secrets set "Authentication:Google:ClientId" "<client-id>"
 dotnet user-secrets set "Authentication:Google:ClientSecret" "<client-secret>"
 ```
+
+## 参考
+
+[Authentication with Google OAuth 2.0](https://blazorschool.com/tutorial/blazor-wasm/dotnet7/authentication-with-google-oauth-2-931158)
