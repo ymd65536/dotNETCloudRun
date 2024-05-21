@@ -29,3 +29,11 @@ gcloud auth configure-docker asia-northeast1-docker.pkg.dev
 ```bash
 docker push asia-northeast1-docker.pkg.dev/dotnetlab-415211/blazorappcontainer/blazorappcontainer:latest
 ```
+
+## Port番号を変更する
+
+```bash
+export ASPNETCORE_URLS=http://+:8080
+```
+
+CloudRunにデプロイするときはデプロイ設定に上記の環境変数を入れないと動きません。
