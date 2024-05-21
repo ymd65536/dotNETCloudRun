@@ -48,6 +48,7 @@ dotnet user-secrets set "Authentication:Google:ClientSecret" "<client-secret>"
 
 ## 参考
 
+- [ASP.NET Core Blazor Server でオレオレ認証を追加したい without Cookie](https://zenn.dev/microsoft/articles/blazor-oreore-auth-part3)
 - [Authentication with Google OAuth 2.0](https://blazorschool.com/tutorial/blazor-wasm/dotnet7/authentication-with-google-oauth-2-931158)
 - [.NET6 Blazor Server で Google OAuth 認証を実装する](https://qiita.com/beginnnnner/items/ba54f2bc72a2584e4ae9)
 - [How do I implement Blazor authentication with Google?](https://www.syncfusion.com/faq/blazor/general/how-do-i-implement-blazor-authentication-with-google)
