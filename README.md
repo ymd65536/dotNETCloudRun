@@ -79,3 +79,5 @@ $env:PROJECT_ID="your-gcp-project"
 - [Microsoft.AspNetCore.Authentication.Google](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Google#versions-body-tab)
 - [ASP.NET Core Identity を使用せずにソーシャル サインイン プロバイダー認証を使用する](https://learn.microsoft.com/ja-jp/aspnet/core/security/authentication/social/social-without-identity?view=aspnetcore-8.0&viewFallbackFrom=aspnetcore-3.0)
 - [Blazor template issues with Google Authentication [dotnet 8 rc2]](https://github.com/dotnet/aspnetcore/issues/51402)
+
+- [azure authentication](https://learn.microsoft.com/ja-jp/dotnet/azure/sdk/authentication/on-premises-apps?tabs=azure-portal%2Cwindows%2Ccommand-line)
