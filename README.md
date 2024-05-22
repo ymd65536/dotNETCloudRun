@@ -46,10 +46,13 @@ dotnet user-secrets set "Authentication:Google:ClientId" "<client-id>"
 dotnet user-secrets set "Authentication:Google:ClientSecret" "<client-secret>"
 ```
 
-## Googole CloudのSecret Managerを使う
+## 必要なパッケージをインストールする
 
 ```bash
 dotnet add package Google.Cloud.SecretManager.V1 --version 2.5.0
+dotnet add package Azure.Identity
+dotnet add package Microsoft.AspNetCore.Authentication.Google
+dotnet add package Microsoft.Extensions.Azure
 ```
 
 ## 環境変数を設定する
