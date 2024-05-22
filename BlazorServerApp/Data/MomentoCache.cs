@@ -21,7 +21,7 @@ public class MomentoCacheSample
     {
         try
         {
-            var setResponse = await client.SetAsync(CacheName, Key, Value);
+            var setResponse = await client!.SetAsync(CacheName, Key, Value);
         }
         catch (Exception e)
         {
