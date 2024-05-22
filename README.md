@@ -46,6 +46,24 @@ dotnet user-secrets set "Authentication:Google:ClientId" "<client-id>"
 dotnet user-secrets set "Authentication:Google:ClientSecret" "<client-secret>"
 ```
 
+## Googole CloudのSecret Managerを使う
+
+```bash
+dotnet add package Google.Cloud.SecretManager.V1 --version 2.5.0
+```
+
+## 環境変数を設定する
+
+```bash
+export PROJECT_ID=your-gcp-project
+```
+
+または
+  
+```bash
+$env:PROJECT_ID="your-gcp-project"
+```
+
 ## 参考
 
 - [ASP.NET Core Blazor Server でオレオレ認証を追加したい without Cookie](https://zenn.dev/microsoft/articles/blazor-oreore-auth-part3)

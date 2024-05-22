@@ -15,7 +15,28 @@ builder.Services.AddSingleton<WeatherForecastService>();
 
 if(builder.Configuration["Authentication:Google:ClientId"] is null || builder.Configuration["Authentication:Google:ClientSecret"] is null)
 {
-    throw new Exception("Google Authentication settings are missing. Please check the configuration.");
+    string PROJECT_ID = Environment.GetEnvironmentVariable("PROJECT_ID")!;
+
+    if (string.IsNullOrEmpty(PROJECT_ID))
+    {
+        Console.WriteLine("PROJECT_ID environment variable must be set.");
+        return;
+    }
+    AccessSecretVersionSample GoogleAuthClient = new();
+    var GOOGLE_CLIENT_ID = GoogleAuthClient.AccessSecretVersion(projectId: PROJECT_ID, secretId: "GOOGLE_CLIENT_ID", secretVersionId: "2");
+    var GOOGLE_CLIENT_SECRET = GoogleAuthClient.AccessSecretVersion(projectId: PROJECT_ID, secretId: "GOOGLE_CLIENT_SECRET", secretVersionId: "2");
+
+    builder.Services.AddAuthentication(options => {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+        }).AddCookie()
+        .AddGoogle(options => {
+        options.ClientId = GOOGLE_CLIENT_ID;
+        options.ClientSecret = GOOGLE_CLIENT_SECRET;
+        options.ClaimActions.MapJsonKey("urn:google:profile", "link");
+        options.ClaimActions.MapJsonKey("urn:google:image", "picture");
+    });
+    //throw new Exception("Google Authentication settings are missing. Please check the configuration.");
 }else{
     builder.Services.AddAuthentication(options => {
         options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
