@@ -72,6 +72,13 @@ $env:AZURE_TENANT_ID=""
 $env:PROJECT_ID="your-gcp-project"
 ```
 
+Google Cloud環境用
+
+```bash
+$env:ASPNETCORE_URLS="http://+:8080"
+$env:ASPNETCORE_ENVIRONMENT="Development"
+```
+
 ## 参考
 
 - [ASP.NET Core Blazor Server でオレオレ認証を追加したい without Cookie](https://zenn.dev/microsoft/articles/blazor-oreore-auth-part3)
