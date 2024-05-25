@@ -64,6 +64,11 @@ export PROJECT_ID=your-gcp-project
 または
   
 ```bash
+$env:MODEL_NAME=""
+$env:OPEN_AI_ENDPOINT=""
+$env:AZURE_CLIENT_ID=""
+$env:AZURE_CLIENT_SECRET=""
+$env:AZURE_TENANT_ID=""
 $env:PROJECT_ID="your-gcp-project"
 ```
 
