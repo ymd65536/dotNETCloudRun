@@ -46,10 +46,13 @@ dotnet user-secrets set "Authentication:Google:ClientId" "<client-id>"
 dotnet user-secrets set "Authentication:Google:ClientSecret" "<client-secret>"
 ```
 
-## Googole CloudのSecret Managerを使う
+## 必要なパッケージをインストールする
 
 ```bash
 dotnet add package Google.Cloud.SecretManager.V1 --version 2.5.0
+dotnet add package Azure.Identity
+dotnet add package Microsoft.AspNetCore.Authentication.Google
+dotnet add package Microsoft.Extensions.Azure
 ```
 
 ## 環境変数を設定する
@@ -61,7 +64,19 @@ export PROJECT_ID=your-gcp-project
 または
   
 ```bash
+$env:MODEL_NAME=""
+$env:OPEN_AI_ENDPOINT=""
+$env:AZURE_CLIENT_ID=""
+$env:AZURE_CLIENT_SECRET=""
+$env:AZURE_TENANT_ID=""
 $env:PROJECT_ID="your-gcp-project"
+```
+
+Google Cloud環境用
+
+```bash
+$env:ASPNETCORE_URLS="http://+:8080"
+$env:ASPNETCORE_ENVIRONMENT="Development"
 ```
 
 ## 参考
@@ -79,3 +94,5 @@ $env:PROJECT_ID="your-gcp-project"
 - [Microsoft.AspNetCore.Authentication.Google](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Google#versions-body-tab)
 - [ASP.NET Core Identity を使用せずにソーシャル サインイン プロバイダー認証を使用する](https://learn.microsoft.com/ja-jp/aspnet/core/security/authentication/social/social-without-identity?view=aspnetcore-8.0&viewFallbackFrom=aspnetcore-3.0)
 - [Blazor template issues with Google Authentication [dotnet 8 rc2]](https://github.com/dotnet/aspnetcore/issues/51402)
+
+- [azure authentication](https://learn.microsoft.com/ja-jp/dotnet/azure/sdk/authentication/on-premises-apps?tabs=azure-portal%2Cwindows%2Ccommand-line)

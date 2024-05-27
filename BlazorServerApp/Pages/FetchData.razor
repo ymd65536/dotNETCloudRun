@@ -1,48 +1,46 @@
 ﻿@page "/fetchdata"
 @attribute [Authorize]
-@using dotNETCloudRun.Data
-@inject WeatherForecastService ForecastService
 
-<PageTitle>Weather forecast</PageTitle>
+<PageTitle>Open AI</PageTitle>
 
-<h1>Weather forecast</h1>
+<h1>Open AI Connect</h1>
 
-<p>This component demonstrates fetching data from a service.</p>
+<h3>OpenAI input query: </h3> 
+<input class="col-sm-4" @bind="newQuery" />
+<button class="btn btn-primary" @onclick="SemanticKernelClient">Send Request</button>
 
-@if (forecasts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+<br />
+<br />
 
-@code {
-    private WeatherForecast[]? forecasts;
+<h4>Server response:</h4> <p>@serverResponse</p>
 
-    protected override async Task OnInitializedAsync()
-    {
-        forecasts = await ForecastService.GetForecastAsync(DateOnly.FromDateTime(DateTime.Now));
+@code{
+
+    @using Azure.Identity;
+    @using Microsoft.SemanticKernel;
+
+    private string? newQuery;
+    private string? serverResponse;
+
+	private async Task SemanticKernelClient()
+	{
+
+        //https://learn.microsoft.com/ja-jp/azure/app-service/deploy-intelligent-apps?pivots=openai-dotnet
+        var ModelName = Environment.GetEnvironmentVariable("MODEL_NAME")!;
+        var Endpoint = Environment.GetEnvironmentVariable("OPEN_AI_ENDPOINT")!;
+        var builder = Kernel.CreateBuilder();
+
+        builder.AddAzureOpenAIChatCompletion(
+            ModelName,
+            Endpoint,
+            new DefaultAzureCredential());
+
+        var kernel = builder.Build();
+        if(!(newQuery is null)){
+            var result = await kernel.InvokePromptAsync(newQuery);
+            serverResponse = result.GetValue<string>();
+        }else{
+            serverResponse = "入力がありません";
+        }
     }
 }
